@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(loam_velodyne)
+project(loam_velodyne_mvelas)
 
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
@@ -10,10 +10,12 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   ecl_time
+  but_velodyne
+  pcl_catkin
   )
 
 #find_package(Eigen3 REQUIRED)
-find_package(PCL REQUIRED)
+# find_package(PCL REQUIRED)
 find_package(OpenCV REQUIRED)
 
 include_directories(
@@ -22,16 +24,16 @@ include_directories(
 #	${EIGEN3_INCLUDE_DIR}
 	${PCL_INCLUDE_DIRS})
 
-find_package(but_velodyne REQUIRED)
-include_directories(${PCL_INCLUDE_DIRS} ${ButVELODYNE_INCLUDE_DIRS})
-link_directories( ${PCL_LIBRARY_DIRS} ${ButVELODYNE_LIBRARY_DIRS})
+# find_package(but_velodyne REQUIRED)
+# include_directories(${PCL_INCLUDE_DIRS} ${ButVELODYNE_INCLUDE_DIRS})
+# link_directories( ${PCL_LIBRARY_DIRS} ${ButVELODYNE_LIBRARY_DIRS})
 
 set(VELODYNE_MODEL "64" CACHE FILEPATH "Model of the Velodyne LiDAR (16, 32 or 64=default)")
 add_definitions(-DVELODYNE_MODEL=${VELODYNE_MODEL})
 
 catkin_package(
-  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs
-  DEPENDS EIGEN3 PCL OpenCV
+  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs but_velodyne pcl_catkin
+  DEPENDS EIGEN OpenCV
   INCLUDE_DIRS include
 )
 
